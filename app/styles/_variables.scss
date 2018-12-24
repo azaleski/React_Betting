@@ -1,0 +1,28 @@
+
+
+$brand-colour: #DB0D17;
+$contrast-colour: #088980;
+$warning-colour: #DF680D;
+$success-colour: #1BB70B;
+
+// Greyscale Ladder
+$black:       mix(#000000, $brand-colour, 99%);
+$darkestgrey: mix(#1a1a1a, $brand-colour, 99%);
+$darkergrey:  mix(#262626, $brand-colour, 99%);
+$darkgrey:    mix(#333333, $brand-colour, 99%);
+$grey:        mix(#5c5c5c, $brand-colour, 99%);
+$lightgrey:   mix(#858585, $brand-colour, 99%);
+$lightergrey: mix(#adadad, $brand-colour, 95%);
+$lightestgrey:mix(#d6d6d6, $brand-colour, 95%);
+$white:       mix(#ffffff, $brand-colour, 95%);
+
+// Base font sizing
+$base-font-size: 1rem;
+$base-line-height: 1.5;
+$base-font-family: 'Fira Sans', -apple-system, system, sans-serif;
+$mono-font-family: 'Fira Mono', monospaced;
+// Extra font sizing
+$small-font-size: .85rem;
+$tiny-font-size: .75rem;
+
+$width-wide: 990px;

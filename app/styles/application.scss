@@ -1,0 +1,219 @@
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans:400,400italic,700,700italic);
+@import url(https://fonts.googleapis.com/css?family=Fira+Mono:400,700);
+@import "reset";
+@import "variables";
+@import "mixins";
+@import "generic";
+
+body {
+  font-family: 'Fira Sans', -apple-system, system, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: $darkgrey;
+}
+
+/**
+ * Root app element. Entirity of actual app sits in a node inside this:
+ * declarations allow this node to sit centrally on the page.
+ */
+#root {
+  align-items: center;
+  background:
+    linear-gradient(160deg, rgba($white, .5) 0, rgba($darkgrey, .35) 100%),
+    linear-gradient(90deg, $white 50%, $brand-colour 50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+/**
+ * Main app node. Contains options nav + two subsections (the available bets and the slip)
+ */
+.betting-app__main__wrapper {
+  border-radius: .25rem;
+  box-shadow: 10px 10px 10px 0 rgba($darkergrey, .5);
+  display: flex;
+  flex-direction: column;
+  min-height: 30rem;
+  overflow: hidden;
+  width: 80%;
+}
+
+.betting-app__main {
+  display: flex;
+  flex: 1;
+}
+
+/**
+ * Each main section contains a list of bets: either available bets
+ * or the user's selected bets. Each also has a set of controls for loading,
+ * clearing and submitting bets.
+ */
+.betting-app__main-section {
+  background: linear-gradient(160deg, rgba($white, .5) 0, rgba($darkgrey, .35) 100%);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/**
+ * `.betting-app__main-section`: list of all available bets.
+ */
+.betting-app__bets {
+  background-color: $brand-colour;
+}
+/**
+ * `.betting-app__main-section`: list of user's bets.
+ */
+.betting-app__slip {
+  background-color: $white;
+}
+
+
+/**
+ * Actual list of bets.
+ */
+.bets,
+.notabet {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.notabet {
+  align-items: center;
+  justify-content: center;
+}
+
+/**
+ * Generic classes for individual bet wrappers.
+ */
+.bet {
+  background-color: rgba($white, .9);
+  border-radius: .25rem;
+  box-shadow: 5px 5px 5px 0 rgba($black, .15);
+  margin: 1rem;
+  overflow: hidden;
+  position: relative;
+}
+
+/**
+ * Actual text of bets - eg `bet on England to win the WC at 10-1` etc.
+ */
+.bet__text,
+.bet::after {
+  padding: 1rem;
+}
+
+/**
+ * Styling for available bets - these have no interactive content, they
+ * are just selectable.
+ * NOTE: Most of the following code is for a shiny slide effect which
+ * in retrospect looks a bit crap.
+ */
+.bet--available {
+  transition: all 350ms;
+  font-style: italic;
+  &::after {
+    background-color: $brand-colour;
+    color: $white;
+    content: "Bet!";
+    font-weight: 400;
+    mix-blend-mode: multiply;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100.1%; // slight jankiness
+    width: 100%;
+    transform: translateX(-100%);
+    transition: all 600ms;
+    text-align: right;
+  }
+  &:active,
+  &:focus,
+  &:hover {
+    &::after {
+      transform: translateX(0);
+      transition: all 600ms;
+    }
+  }
+}
+
+.bet--submittable {
+  background-color: rgba($contrast-colour, .25);
+}
+
+.bet__reminder {
+  font-size: $small-font-size;
+  font-style: normal;
+  opacity: .5;
+}
+
+.posted-bets__dropdown {
+  background-color: $contrast-colour;
+  box-shadow: 5px 5px 5px 0 rgba($darkergrey, .25);
+  color: rgba(white, .75);
+  font-family: $mono-font-family;
+  font-size: $tiny-font-size;
+  letter-spacing: 0.1em;
+  padding: 1rem;
+  position: absolute;
+  right: 0;
+  text-transform: uppercase;
+  top: 100%;
+  z-index: 3;
+}
+
+// TODO: transition
+.posted-bets__dropdown--hidden {
+  display: none;
+}
+
+.posted-bets__dropdown--visible {
+  display: block;
+}
+
+.posted-bets__header {
+  border-bottom: 1px dotted currentColor;
+  color: rgba(white, .5);
+  margin-bottom: 1rem;
+}
+
+.posted-bet {
+  border-bottom: 1px dotted currentColor;
+  margin-bottom: .5rem;
+  padding: .5rem 0;
+}
+
+/**
+ * FIXME: Very, very hacky show/hide for flash.
+ */
+.flash {
+  animation: 3s ease-in-out 0s flash;
+  border-radius: .25rem;
+  box-shadow: 5px 5px 5px 0 rgba($black, .15);
+  margin: .5rem;
+  opacity: 0;
+  padding: 1rem;
+  text-align: center;
+  transform: scale(0);
+}
+
+.flash--success {
+  background-color: $contrast-colour;
+  color: mix($black, $contrast-colour);
+}
+
+.flash--error {
+  background-color: $warning-colour;
+  color: mix($black, $warning-colour);
+}
+
+@keyframes flash {
+  0%   { transform: scale(0); opacity: 0; }
+  20%  { transform: scale(1); opacity: 1; }
+  80%  { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0); opacity: 0; }
+}
